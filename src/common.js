@@ -12,6 +12,7 @@ function setup(env) {
 	createDebug.enable = enable;
 	createDebug.enabled = enabled;
 	createDebug.humanize = require('ms');
+	createDebug.showOnlyRaw = false
 
 	Object.keys(env).forEach(key => {
 		createDebug[key] = env[key];
@@ -108,7 +109,7 @@ function setup(env) {
 			});
 
 			// Apply env-specific formatting (colors, etc.)
-			createDebug.formatArgs.call(self, args);
+			if (!createDebug.showOnlyRaw) createDebug.formatArgs.call(self, args);
 
 			const logFn = self.log || createDebug.log;
 			logFn.apply(self, args);
